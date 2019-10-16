@@ -14,7 +14,7 @@ vel = 5
 
 left=False
 right=False
-walk_cousnt = 0
+walk_count = 0
 walkRight = []
 walkLeft = []
 
