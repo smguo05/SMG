@@ -20,7 +20,7 @@ walkLeft = []
 
 theClock = pygame.time.Clock()
 
-background_image = pygame.image.load('Sprites/bg1.png')
+background_image = pygame.image.load('Sprites/bg2.png')
 background_size = background_image.get_size()
 background_rect = background_image.get_rect()
 sw = 840
@@ -28,11 +28,16 @@ sh = 464
 win = pygame.display.set_mode((sw, sh))
 w,h = background_size
 
+t_x = sw
+t_y = 350
+
 bg_x1 = 0
 bg_y1 = 0
 
 bg_x2 = w
 bg_y2 = 0
+
+d2 = 9999
 
 def load_img(file_name): # loads the image, makes the pure white background transparent
     img = pygame.image.load(file_name).convert()
@@ -45,6 +50,8 @@ for i in range(1,7):
     walkRight.append( load_img("Sprites/R" + str(i) + ".png") ) 
 
 player_image = walkRight[0]
+turtle_image = pygame.image.load('Sprites/turtle.png')
+turtle_small = pygame.transform.scale(turtle_image, (100, 60))
 
 pygame.mixer.music.load('Music/bensound-summer.mp3')
 pygame.mixer.music.play(-1)
@@ -65,10 +72,16 @@ while run:
     bg_x2 -= 5
     bg_x1 -= 5
     if bg_x1 < sw - 2*w:
-       bg_x1 = 0
-    if bg_x2 < sw - w:
-       bg_x2 = w
+       bg_x1 = sw
+       if bg_x2 < sw - 2*w:
+          bg_x2 = sw
 
+    t_x -=10
+    if t_x < 0:
+        t_x = sw
+
+   
+          
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -108,14 +121,22 @@ while run:
             isJump = False
             jumpCount = 10
 
-            
-    win.blit(background_image,(bg_x1,bg_y1))
-    win.blit(background_image,(bg_x2,bg_y2))
+    if bg_x1 > -w:        
+        win.blit(background_image,(bg_x1,bg_y1))
+    if bg_x2 > -w:
+        win.blit(background_image,(bg_x2,bg_y2))
     win.blit(player_image, (m_x,m_y))
+    win.blit(turtle_small, (t_x, t_y))
   
     pygame.display.update()
-    theClock.tick(500)
 
+   
+    d2 = (t_x - m_x)**2 + (t_y - m_y)**2
+    if d2 < 1000:
+        run = False
+        
+
+    theClock.tick(50)
 
         
 
