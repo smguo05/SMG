@@ -22,7 +22,7 @@ walkLeft = []
 
 myfont = pygame.font.SysFont("monospace", 25)
 screen_over = pygame.font.SysFont("monospace", 100)
-score = 0
+hit_count = 0
 
 theClock = pygame.time.Clock()
 
@@ -35,8 +35,8 @@ win = pygame.display.set_mode((sw, sh))
 w,h = background_size
 
 
-t_x = sw
-t_y = 350
+g_x = sw
+g_y = 360
 
 bg_x1 = 0
 bg_y1 = 0
@@ -57,8 +57,8 @@ for i in range(1,7):
     walkRight.append( load_img("Sprites/R" + str(i) + ".png") ) 
 
 player_image = walkRight[0]
-turtle_image = pygame.image.load('Sprites/EL2.png')
-turtle_small = pygame.transform.scale(turtle_image, (100, 60))
+enemy_image = pygame.image.load('Sprites/G1.png')
+enemy_small = pygame.transform.scale(enemy_image, (80, 60))
 
 pygame.mixer.music.load('Music/bensound-summer.mp3')
 pygame.mixer.music.play(-1)
@@ -72,20 +72,17 @@ right_idx=0
 run = True #main loop
 while run:
     pygame.time.delay(50)
-    
-    win.blit(background_image,(sw, sh)) #makes a scrolling background 
-    pygame.display.update()
-    
+
     bg_x2 -= 5
     bg_x1 -= 5
     if bg_x1 < sw - 2*w:
        bg_x1 = sw
-       if bg_x2 < sw - 2*w:
-          bg_x2 = sw
+    if bg_x2 < sw - 2*w:
+       bg_x2 = sw
 
-    t_x -=20
-    if t_x < 0:
-        t_x = sw
+    g_x -=20
+    if g_x < 0:
+        g_x = sw
 
    
           
@@ -133,24 +130,25 @@ while run:
     if bg_x2 > -w:
         win.blit(background_image,(bg_x2,bg_y2))
     win.blit(player_image, (m_x,m_y))
-    win.blit(turtle_small, (t_x, t_y))
+    win.blit(enemy_image, (g_x, g_y))
 
-    label = myfont.render("Score = "+ str(score), 1, (0, 0, 0)) #NEED TO FIX
-    win.blit(label, ((sw-200), 50))
+    label = myfont.render("Hit Count = "+ str(hit_count), 1, (0, 0, 0)) #NEED TO FIX
+    win.blit(label, ((sw-250), 50))
 
   
     pygame.display.update()
 
    
-    d2 = (t_x - m_x)**2 + (t_y - m_y)**2
-    if d2 < 100:
-         score -=1
-         if score < -5:
+    d2 = (g_x - m_x)**2 + (g_y - m_y)**2
+    if d2 < 200:
+         hit_count +=1
+         if hit_count > 5:
              label2 = screen_over.render("Game Over", 1, (255, 0, 0))
              win.blit(label2, (150, 200))
              pygame.display.update()
              time.sleep(3)
              run= False
+
     
 
     theClock.tick(50)
