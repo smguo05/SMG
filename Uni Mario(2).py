@@ -7,8 +7,8 @@ pygame.init()
 pygame.display.set_caption("Uni Mario")
 
 
-m_x = 100
-m_y = 350
+p_x = 100
+p_y = 350
 width = 40
 height = 60
 vel = 5
@@ -18,6 +18,7 @@ right=False
 walk_count = 0
 walkRight = []
 walkLeft = []
+walkELeft = []
 
 
 myfont = pygame.font.SysFont("monospace", 25)
@@ -55,10 +56,13 @@ def load_img(file_name): # loads the image, makes the pure white background tran
 for i in range(1,7):
     walkLeft.append( load_img("Sprites/L" + str(i) + ".png" ) ) #loads in lists of images
     walkRight.append( load_img("Sprites/R" + str(i) + ".png") ) 
-
 player_image = walkRight[0]
+
+#for i2 in range(1,4):
+#    walkELeft.append( load_img("Sprites/G" + str(i2) + ".png") )
+#enemy_image = walkELeft[0]
+
 enemy_image = pygame.image.load('Sprites/G1.png')
-enemy_small = pygame.transform.scale(enemy_image, (80, 60))
 
 pygame.mixer.music.load('Music/bensound-summer.mp3')
 pygame.mixer.music.play(-1)
@@ -91,16 +95,16 @@ while run:
             run = False
                                              
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT] and m_x > vel: 
-        m_x -= vel
+    if keys[pygame.K_LEFT] and p_x > vel: 
+        p_x -= vel
         if not isJump:
             player_image = walkLeft[left_idx]
             left_idx += 1
             if left_idx >= len(walkLeft):
                 left_idx=0
         
-    if keys[pygame.K_RIGHT] and m_x < sw - width - vel:
-        m_x += vel
+    if keys[pygame.K_RIGHT] and p_x < sw - width - vel:
+        p_x += vel
         if not isJump:
             player_image = walkRight[right_idx]
             right_idx += 1
@@ -118,7 +122,7 @@ while run:
             neg = 1
             if jumpCount < 0:
                 neg = -1
-            m_y -= (jumpCount ** 2)* 0.4 * neg
+            p_y -= (jumpCount ** 2)* 0.4 * neg
             jumpCount -= 1
 
         else:
@@ -129,7 +133,7 @@ while run:
         win.blit(background_image,(bg_x1,bg_y1))
     if bg_x2 > -w:
         win.blit(background_image,(bg_x2,bg_y2))
-    win.blit(player_image, (m_x,m_y))
+    win.blit(player_image, (p_x,p_y))
     win.blit(enemy_image, (g_x, g_y))
 
     label = myfont.render("Hit Count = "+ str(hit_count), 1, (0, 0, 0)) #NEED TO FIX
@@ -139,7 +143,7 @@ while run:
     pygame.display.update()
 
    
-    d2 = (g_x - m_x)**2 + (g_y - m_y)**2
+    d2 = (g_x - p_x)**2 + (g_y - p_y)**2
     if d2 < 200:
          hit_count +=1
          if hit_count > 5:
