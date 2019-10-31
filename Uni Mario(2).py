@@ -58,11 +58,8 @@ for i in range(1,7):
     walkRight.append( load_img("Sprites/R" + str(i) + ".png") ) 
 player_image = walkRight[0]
 
-#for i2 in range(1,4):
-#    walkELeft.append( load_img("Sprites/G" + str(i2) + ".png") )
-#enemy_image = walkELeft[0]
-
-enemy_image = pygame.image.load('Sprites/G1.png')
+enemy_images = [pygame.image.load('Sprites/G1.png'), pygame.image.load('Sprites/G2.png')]
+index = 0
 
 #pygame.mixer.music.load('Music/bensound-summer.mp3')
 #pygame.mixer.music.play(-1)
@@ -134,7 +131,12 @@ while run:
     if bg_x2 > -w:
         win.blit(background_image,(bg_x2,bg_y2))
     win.blit(player_image, (p_x,p_y))
-    win.blit(enemy_image, (g_x, g_y))
+    if run==True:
+        win.blit(enemy_images[index], (g_x, g_y))
+        pygame.time.delay(20)
+        index +=1
+    if index >= len(enemy_images):
+        index = 0
 
     label = myfont.render("Hit Count = "+ str(hit_count), 1, (0, 0, 0))
     win.blit(label, ((sw-250), 50))
@@ -144,7 +146,7 @@ while run:
 
    
     d2 = (g_x - p_x)**2 + (g_y - p_y)**2 #calculates distance between the Mario and Goomba
-    if d2 < 250:
+    if d2 < 200:
          hit_count +=1
          if hit_count > 5:
              label2 = screen_over.render("Game Over", 1, (255, 0, 0))
