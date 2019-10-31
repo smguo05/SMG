@@ -100,13 +100,13 @@ while run:
         #    if left_idx >= len(walkLeft):
          #       left_idx=0
         
-    if keys[pygame.K_RIGHT] and p_x < sw - width - vel:
-        p_x += vel
-        if not isJump:
-            player_image = walkRight[right_idx]
-            right_idx += 1
-            if right_idx >= len(walkRight):
-                right_idx=0
+    #if keys[pygame.K_RIGHT] and p_x < sw - width - vel:
+        #p_x += vel
+        #if not isJump:
+            #player_image = walkRight[right_idx]
+            #right_idx += 1
+            #if right_idx >= len(walkRight):
+                #right_idx=0
         
     if not(isJump):      
         if keys[pygame.K_UP]:
