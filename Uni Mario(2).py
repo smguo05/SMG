@@ -61,8 +61,8 @@ player_image = walkRight[0]
 enemy_images = [pygame.image.load('Sprites/G1.png'), pygame.image.load('Sprites/G2.png')]
 index = 0
 
-#pygame.mixer.music.load('Music/bensound-summer.mp3')
-#pygame.mixer.music.play(-1)
+pygame.mixer.music.load('Music/bensound-summer.mp3')
+pygame.mixer.music.play(-1)
 
 isJump = False
 jumpCount = 10
@@ -108,7 +108,7 @@ while run:
             #if right_idx >= len(walkRight):
                 #right_idx=0
         
-    if not(isJump):      
+    if not(isJump):      #jumping animation
         if keys[pygame.K_UP]:
             isJump = True
         if keys[pygame.K_SPACE]:
@@ -131,7 +131,7 @@ while run:
     if bg_x2 > -w:
         win.blit(background_image,(bg_x2,bg_y2))
     win.blit(player_image, (p_x,p_y))
-    if run==True:
+    if run==True: #animation of Goomba
         win.blit(enemy_images[index], (g_x, g_y))
         pygame.time.delay(20)
         index +=1
@@ -147,7 +147,7 @@ while run:
    
     d2 = (g_x - p_x)**2 + (g_y - p_y)**2 #calculates distance between the Mario and Goomba
     if d2 < 200:
-         hit_count +=1
+         hit_count +=1 
          if hit_count > 5:
              label2 = screen_over.render("Game Over", 1, (255, 0, 0))
              win.blit(label2, (150, 200))
