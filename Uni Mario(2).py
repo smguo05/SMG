@@ -74,14 +74,14 @@ run = True #main loop
 while run:
     pygame.time.delay(50)
 
-    bg_x2 -= 5
+    bg_x2 -= 5 #scrolling background
     bg_x1 -= 5
     if bg_x1 < sw - 2*w:
        bg_x1 = sw
     if bg_x2 < sw - 2*w:
        bg_x2 = sw
 
-    g_x -=20
+    g_x -=20 #respawns Goomba
     if g_x < 0:
         g_x = sw
 
@@ -100,15 +100,15 @@ while run:
         #    if left_idx >= len(walkLeft):
          #       left_idx=0
         
-    #if keys[pygame.K_RIGHT] and p_x < sw - width - vel:
-        #p_x += vel
-        #if not isJump:
-            #player_image = walkRight[right_idx]
-            #right_idx += 1
-            #if right_idx >= len(walkRight):
-                #right_idx=0
+    if keys[pygame.K_RIGHT] and p_x < sw - width - vel:
+       p_x += vel
+       if not isJump:
+            player_image = walkRight[right_idx]
+            right_idx += 1
+            if right_idx >= len(walkRight):
+                right_idx=0
         
-    if not(isJump):      #jumping animation
+    if not(isJump): #jumping animation
         if keys[pygame.K_UP]:
             isJump = True
         if keys[pygame.K_SPACE]:
@@ -147,7 +147,7 @@ while run:
    
     d2 = (g_x - p_x)**2 + (g_y - p_y)**2 #calculates distance between the Mario and Goomba
     if d2 < 200:
-         hit_count +=1 
+         hit_count +=1
          if hit_count > 5:
              label2 = screen_over.render("Game Over", 1, (255, 0, 0))
              win.blit(label2, (150, 200))
