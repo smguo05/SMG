@@ -60,12 +60,14 @@ player_image = walkRight[0]
 
 enemy_images = [pygame.image.load('Sprites/G1.png'), pygame.image.load('Sprites/G2.png')]
 index = 0
-
+                                   
 pygame.mixer.music.load('Music/bensound-summer.mp3')
 pygame.mixer.music.play(-1)
 
 isJump = False
 jumpCount = 10
+isSlide = False
+slideCount = 10
 
 left_idx=0
 right_idx=0
@@ -81,7 +83,7 @@ while run:
     if bg_x2 < sw - 2*w:
        bg_x2 = sw
 
-    g_x -=20 #respawns Goomba
+    g_x -=20 #respawns Goomba every background frame
     if g_x < 0:
         g_x = sw
 
@@ -90,24 +92,22 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-                                             
+            
+    player_image = walkRight[right_idx] #running by himself
+    right_idx += 1
+    if right_idx >= len(walkRight):
+        right_idx=0                                         
+
     keys = pygame.key.get_pressed()
-   # if keys[pygame.K_LEFT] and p_x > vel: 
-    #    p_x -= vel
-     #   if not isJump:
-      #      player_image = walkLeft[left_idx]
-       #     left_idx += 1
-        #    if left_idx >= len(walkLeft):
-         #       left_idx=0
         
-    if keys[pygame.K_RIGHT] and p_x < sw - width - vel:
-       p_x += vel
-       if not isJump:
-            player_image = walkRight[right_idx]
-            right_idx += 1
-            if right_idx >= len(walkRight):
-                right_idx=0
-        
+    #if keys[pygame.K_RIGHT] and p_x < sw - width - vel:
+     #  p_x += vel
+      # if not isJump:
+       #     player_image = walkRight[right_idx]
+        #    right_idx += 1
+         #   if right_idx >= len(walkRight):
+          #      right_idx=0
+                
     if not(isJump): #jumping animation
         if keys[pygame.K_UP]:
             isJump = True
@@ -125,6 +125,9 @@ while run:
         else:
             isJump = False
             jumpCount = 10
+
+    if keys[pygame.K_DOWN]:
+            isSlide = True
 
     if bg_x1 > -w:        
         win.blit(background_image,(bg_x1,bg_y1))
@@ -146,7 +149,7 @@ while run:
 
    
     d2 = (g_x - p_x)**2 + (g_y - p_y)**2 #calculates distance between the Mario and Goomba
-    if d2 < 200:
+    if d2 < 500:
          hit_count +=1
          if hit_count > 5:
              label2 = screen_over.render("Game Over", 1, (255, 0, 0))
