@@ -111,8 +111,8 @@ while run:
     if not(isJump): #jumping animation
         if keys[pygame.K_UP]:
             isJump = True
-        if keys[pygame.K_SPACE]:
-            isJump = True
+        #if keys[pygame.K_SPACE]: #sliding animation [IN PROGRESS]
+            #isJump = True
 
     else:
         if jumpCount >= -10:
