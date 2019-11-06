@@ -58,7 +58,7 @@ for i in range(1,7):
     walkRight.append( load_img("Sprites/R" + str(i) + ".png") ) 
 player_image = walkRight[0]
 
-slide = [pygame.image.load('Sprites/S1.png'), pygame.image.load('Sprites/S1.png')] #CHANGE WITH S1 WHEN AVAILABLE!!
+slide = [pygame.image.load('Sprites/S1.png'), pygame.image.load('Sprites/S1.png')] 
 enemy_images = [pygame.image.load('Sprites/G1.png'), pygame.image.load('Sprites/G2.png')]
 
 index = 0
