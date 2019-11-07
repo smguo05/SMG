@@ -44,8 +44,8 @@ bg_y1 = 0
 bg_x2 = w
 bg_y2 = 0
 
-t_x = 200
-t_y = 300
+#t_x = 200
+#t_y = 300
 
 d2 = 9999
 count = 9999
@@ -63,12 +63,13 @@ player_image = walkRight[0]
 
 slide = [pygame.image.load('Sprites/S1.png'), pygame.image.load('Sprites/S1.png')] 
 enemy_images = [pygame.image.load('Sprites/G1.png'), pygame.image.load('Sprites/G2.png')]
-tube = pygame.image.load('Sprite/T1.png')
+#tube = pygame.image.load('Sprites/T1.png')
+
 
 index = 0
 
-pygame.mixer.music.load('Music/bensound-summer.mp3') #runs music on loop
-pygame.mixer.music.play(-1)
+#pygame.mixer.music.load('Music/bensound-summer.mp3') #runs music on loop
+#pygame.mixer.music.play(-1)
 
 isJump = False
 jumpCount = 10
@@ -92,10 +93,11 @@ while run:
         g_x = sw
         if g_v < 100:
             g_v += 3
-    
-    t_x -= 5
-    if t_x < 0:
-        t_x = sw
+
+    #t_x -= 5
+    #if t_x < 0:
+        #t_x = sw
+            
          
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -147,8 +149,7 @@ while run:
         index +=1
     if index >= len(enemy_images):
         index = 0
-    
-    win.blit(tube, (t_x, t_y))
+    #win.blit(tube, (t_x, t_y))
 
     label = myfont.render("Hit Count = "+ str(hit_count), 1, (0, 0, 0))
     win.blit(label, ((sw-250), 50))
@@ -156,7 +157,8 @@ while run:
   
     pygame.display.update()
 
-    if count < 9999: count += 1
+    if count < 9999:
+        count += 1
     d2 = (g_x - p_x)**2 + (g_y - p_y)**2 #calculates distance between the Mario and Goomba
     if d2 < 5000 and count > 10: #adds only one point per hit
          hit_count +=1
