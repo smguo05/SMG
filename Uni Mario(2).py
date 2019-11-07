@@ -68,8 +68,8 @@ enemy_images = [pygame.image.load('Sprites/G1.png'), pygame.image.load('Sprites/
 
 index = 0
 
-#pygame.mixer.music.load('Music/bensound-summer.mp3') #runs music on loop
-#pygame.mixer.music.play(-1)
+pygame.mixer.music.load('Music/bensound-summer.mp3') #runs music on loop
+pygame.mixer.music.play(-1)
 
 isJump = False
 jumpCount = 10
