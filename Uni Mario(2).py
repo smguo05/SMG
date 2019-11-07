@@ -44,6 +44,9 @@ bg_y1 = 0
 bg_x2 = w
 bg_y2 = 0
 
+t_x = 200
+t_y = 300
+
 d2 = 9999
 count = 9999
 
@@ -60,6 +63,7 @@ player_image = walkRight[0]
 
 slide = [pygame.image.load('Sprites/S1.png'), pygame.image.load('Sprites/S1.png')] 
 enemy_images = [pygame.image.load('Sprites/G1.png'), pygame.image.load('Sprites/G2.png')]
+tube = pygame.image.load('Sprite/T1.png')
 
 index = 0
 
@@ -88,7 +92,10 @@ while run:
         g_x = sw
         if g_v < 100:
             g_v += 3
-            
+    
+    t_x -= 5
+    if t_x < 0:
+        t_x = sw
          
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -140,6 +147,8 @@ while run:
         index +=1
     if index >= len(enemy_images):
         index = 0
+    
+    win.blit(tube, (t_x, t_y))
 
     label = myfont.render("Hit Count = "+ str(hit_count), 1, (0, 0, 0))
     win.blit(label, ((sw-250), 50))
