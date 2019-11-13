@@ -64,7 +64,9 @@ for i in range(1,7):
     walkRight.append( load_img("Sprites/R" + str(i) + ".png") ) 
 player_image = walkRight[0]
 
-slide = [pygame.image.load('Sprites/S1.png'), pygame.image.load('Sprites/S1.png')] 
+slide0 = pygame.image.load('Sprites/R1.png')
+slide = pygame.transform.rotate(slide0, 90)
+#slide = [pygame.image.load('Sprites/S1.png'), pygame.image.load('Sprites/S1.png')]
 enemy_images = [pygame.image.load('Sprites/G1.png'), pygame.image.load('Sprites/G2.png')]
 #tube = pygame.image.load('Sprites/T1.png')
 
@@ -101,9 +103,11 @@ while run:
     #if t_x < 0:
         #t_x = sw
         #if t_v < 1000:
-            #t_v += 2
+            #t_v += 2   
     #if t_v >= 25 and t_v <= 30:
         #t_v = random.randint(15,30)
+         
+    
             
          
     for event in pygame.event.get():
@@ -138,10 +142,10 @@ while run:
 
     if not(isJump): #sliding animation
         if keys[pygame.K_DOWN]:
-            player_image = slide[index]
-            index +=1
-            if index >= len(slide):
-                index = 0
+            player_image = slide#[index]
+           # index +=1
+           # if index >= len(slide):
+                #index = 0
             
 
     if bg_x1 > -w:        
@@ -170,7 +174,7 @@ while run:
     if d2 < 5000 and count > 10: #adds only one point per hit
          hit_count +=1
          count = 0
-         if hit_count > 5:
+         if hit_count > 1000000:
              label2 = screen_over.render("Game Over", 1, (255, 0, 0))
              win.blit(label2, (150, 200))
              pygame.display.update()
