@@ -49,9 +49,11 @@ bg_y2 = 0
 #t_y = 300
 #t_v = random.randint(15,30)
 
+
 d2 = 9999
 d3 = 9999
 count = 9999
+
 
 def load_img(file_name): # loads the image, makes the pure white background transparent
     img = pygame.image.load(file_name).convert()
@@ -68,7 +70,7 @@ slide0 = pygame.image.load('Sprites/R1.png')
 slide = pygame.transform.rotate(slide0, 90)
 #slide = [pygame.image.load('Sprites/S1.png'), pygame.image.load('Sprites/S1.png')]
 enemy_images = [pygame.image.load('Sprites/G1.png'), pygame.image.load('Sprites/G2.png')]
-#tube = pygame.image.load('Sprites/T1.png')
+tube = pygame.image.load('Sprites/T1.png')
 
 
 index = 0
@@ -78,6 +80,7 @@ index = 0
 
 isJump = False
 jumpCount = 10
+slideCount = 10
 
 left_idx=0
 right_idx=0
@@ -142,7 +145,10 @@ while run:
 
     if not(isJump): #sliding animation
         if keys[pygame.K_DOWN]:
-            player_image = slide#[index]
+            player_image = slide
+            p_y = 350
+            slideCount -=1
+            #[index]
            # index +=1
            # if index >= len(slide):
                 #index = 0
