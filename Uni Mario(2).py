@@ -45,9 +45,9 @@ bg_y1 = 0
 bg_x2 = w
 bg_y2 = 0
 
-#t_x = 200
-#t_y = 300
-#t_v = random.randint(15,30)
+t_x = 200
+t_y = 250
+t_v = random.randint(15,30)
 
 
 d2 = 9999
@@ -68,15 +68,15 @@ player_image = walkRight[0]
 
 slide0 = pygame.image.load('Sprites/R1.png')
 slide = pygame.transform.rotate(slide0, 90)
-#slide = [pygame.image.load('Sprites/S1.png'), pygame.image.load('Sprites/S1.png')]
 enemy_images = [pygame.image.load('Sprites/G1.png'), pygame.image.load('Sprites/G2.png')]
-tube = pygame.image.load('Sprites/T1.png')
+tube0 = pygame.image.load('Sprites/T1.png')
+tube = pygame.transform.flip(tube0, False, True)
 
 
 index = 0
 
-#pygame.mixer.music.load('Music/bensound-summer.mp3') #runs music on loop
-#pygame.mixer.music.play(-1)
+pygame.mixer.music.load('Music/bensound-summer.mp3') #runs music on loop
+pygame.mixer.music.play(-1)
 
 isJump = False
 jumpCount = 10
@@ -102,13 +102,13 @@ while run:
         if g_v < 75:
             g_v += 3
 
-    #t_x -= 5
-    #if t_x < 0:
-        #t_x = sw
-        #if t_v < 1000:
-            #t_v += 2   
-    #if t_v >= 25 and t_v <= 30:
-        #t_v = random.randint(15,30)
+    t_x -= 5
+    if t_x < 0:
+        t_x = sw
+        if t_v < 1000:
+            t_v += 2   
+    if t_v >= 25 and t_v <= 30:
+        t_v = random.randint(15,30)
          
     
             
@@ -166,7 +166,7 @@ while run:
         index +=1
     if index >= len(enemy_images):
         index = 0
-    #win.blit(tube, (t_x, t_y))
+    win.blit(tube, (t_x, t_y))
 
     label = myfont.render("Hit Count = "+ str(hit_count), 1, (0, 0, 0))
     win.blit(label, ((sw-250), 50))
@@ -180,26 +180,23 @@ while run:
     if d2 < 5000 and count > 10: #adds only one point per hit
          hit_count +=1
          count = 0
-         if hit_count > 1000000:
+         if hit_count > 100000000:
              label2 = screen_over.render("Game Over", 1, (255, 0, 0))
              win.blit(label2, (150, 200))
              pygame.display.update()
              time.sleep(3)
              run= False
-    #d3 = (t_x - p_x)**2 + (t_y - p_y)**2 #distance between tube and Mario
-    #if count < 9999: count += 1
-    #if d3 < 500:
-        #label2 = screen_over.render("Game Over", 1, (255, 0, 0))
-        #win.blit(label2, (165, 200))
-        #pygame.display.update()
-        #time.sleep(2)
-        #run = False
+    d3 = (t_x - p_x)**2 + (t_y - p_y)**2 #distance between tube and Mario
+    if count < 9999: count += 1
+    if d3 < 500:
+        label2 = screen_over.render("Game Over", 1, (255, 0, 0))
+        win.blit(label2, (165, 200))
+        pygame.display.update()
+        time.sleep(2)
+        run = False
 
-    
 
-    theClock.tick(50)
-
-        
+    theClock.tick(50)    
 
 
 

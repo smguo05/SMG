@@ -1,3 +1,24 @@
+# write-html-2-windows.py
+
+import webbrowser
+
+f = open('unimario.html', 'w')
+
+message = """<html>
+<head>
+  <title>Uni Mario Project</title>
+</head>
+<body>
+  <center><h1>Uni Mario</h1></center>
+  <a href="Uni Mario(A).py">Uni Mario</a>
+  <center><p>Our main objective throughout this project was to create a Uni Mario game, which we would code and create graphics for. Arya and Sarah created the code, and Katya did the graphics. This is the result.</p></center> 
+  <center><img src="https://cdn.pixabay.com/photo/2017/08/28/16/17/super-mario-2690254_960_720.jpg" alt="Mario in a Tube" width="900" height="500"></center>
+</body>
+</html>"""
+
+f.write(message)
+f.close()
+
 import pygame
 import sys
 import pygame.sprite as sprite
@@ -52,14 +73,14 @@ bg_y2 = 0
 d2 = 9999
 count = 9999
 
-def load_img(file_name): # loads the image, makes the pure white background transparent
+def load_img(file_name): #loads the image, makes the pure white background transparent
     img = pygame.image.load(file_name).convert()
     img.set_colorkey((255,255,255))
 
     return img
 
 for i in range(1,7):
-    walkLeft.append( load_img("Sprites/L" + str(i) + ".png" ) ) #loads in lists of images
+    walkLeft.append( load_img("Sprites/L" + str(i) + ".png" ) ) #loads in lists of images for Mario animation
     walkRight.append( load_img("Sprites/R" + str(i) + ".png") )
     
 player_image = walkRight[0]
@@ -76,7 +97,7 @@ if d2 > 2500 and d3 > 1750:
     yes = True
 
 #if yes == True:
-pygame.mixer.music.load('Music/Bros-Theme-Song.mp3')
+pygame.mixer.music.load('Music/Bros-Theme-Song.mp3') #music
 pygame.mixer.music.play(-1)
 #if yes == False:
  #   pygame.mixer.music.load('Music/Over.mp3')
@@ -126,7 +147,7 @@ while run:
             run = False
                                              
     keys = pygame.key.get_pressed()
-    if run == True:
+    if run == True: #jumping animation
         if not isJump:
             player_image = walkRight[right_idx]
             right_idx += 1
@@ -177,8 +198,8 @@ while run:
 
     pygame.display.update() 
 
-    d2 = (t_x - 50 - p_x)**2 + (t_y - p_y)**2 #represents the distance between mario and goomba
-    d3 = (g_x + 250 - p_x)**2 + (t_y - p_y)**2
+    d2 = (t_x - 50 - p_x)**2 + (t_y - p_y)**2 #represents the distance between Mario and Goomba
+    d3 = (g_x + 250 - p_x)**2 + (t_y - p_y)**2 #represents the distance between Mario and the tube
     
     if count < 9999: count += 1
     
@@ -189,7 +210,7 @@ while run:
         time.sleep(2)
         run = False
         
-    elif d2 < 2500 and count > 10: #keep it between 142 and 5000, it seems to be a good distance for the hitcount
+    elif d2 < 2500 and count > 10: 
         label2 = screen_over.render("GAME OVER", 1, (255, 0, 0))
         win.blit(label2, (165, 200))
         pygame.display.update()
@@ -201,7 +222,7 @@ while run:
     else:
         score += 1/10
         
-    if score >= 100: #score >= 100
+    if score >= 100: 
         label6 = screen_over.render("VICTORY!", 1, (0, 0, 255))
         win.blit(label6, (200,200))
         pygame.display.update()
@@ -209,3 +230,7 @@ while run:
         run = False
 
 pygame.quit()
+
+
+
+webbrowser.open_new_tab('unimario.html')
